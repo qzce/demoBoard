@@ -40,3 +40,4 @@ out/
 ### custom ###
 application.properties
 src/main/resources/static/files/
+/WEB-INF/

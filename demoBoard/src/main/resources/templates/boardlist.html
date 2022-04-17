@@ -13,10 +13,16 @@
 		margin-top : 40px;
 	} 
 	
+	.pagnation {
+		width : 100%;
+		text-align: center;
+	}
+	
 </style>
 
 <body>
 	<div class="layout">
+		<a href="/board/list">처음</a>
 		<a th:href="@{/board/write}">글쓰기</a>
 		<table>
 			<thead>
@@ -34,6 +40,20 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<div class="pagnation">
+			<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+				<a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+				<strong th:if="${page == nowPage}" th:text="${page}" style="color : red;"></strong>
+			</th:block>
+			<a th:if="${nowPage < endPage}" th:href="@{/board/list(page = ${nowPage})}"> > </a>
+			
+			<form th:action="@{/board/list}" method="get">
+				<input type="text" name="searchKeyword" th:value="${searchKeyword}">
+				<button type="submit">검색</button>
+			</form>
+		</div>
+		
 	</div>
 </body>
 </html>
